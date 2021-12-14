@@ -1,7 +1,8 @@
-package java;
 
 import main.java.Person;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-    class PersonTest {
+
+class PersonTest {
+
+   /* private static Person person;
+
+    @BeforeAll
+            public static void setUp() {
+            person = new Person();
+    }*/
 
         @Test
         @DisplayName("Task 1: Verify person details")
@@ -45,8 +54,7 @@ import static org.assertj.core.api.Assertions.*;
             assertThat(person.getFirstName()).contains("ber");
             assertThat(person.getLastName()).endsWith("n");
             assertThat(person.getFirstName()).hasSize(6);
-            assertThat(person.getLastName()).ha
-                    //hasSizeLessThan(9);
+           //assertThat(person.getLastName()). ???? (9);
         }
 
         @Test
@@ -54,10 +62,11 @@ import static org.assertj.core.api.Assertions.*;
         public void verifyPersonDetailsByComparingWithOtherPerson() {
             Person person1 = new Person("Albert", "Einstein", 25, List.of("Berlin"), true);
             Person person2 = new Person("Albert", "Einstein", 25, List.of("Berlin"), true);
+             assertThat(person1).isEqualTo(person2);
+           //Assertions.assertThat(person2).usingRecursiveComparison
+                   //usingRecursive().ignoringFields("lastName", "citiesVisited").isEqualTo(person2);
 
 
-            assertThat(person1).usingRecursiveComparison().isEqualTo(person2);
-            assertThat(person2).usingRecursiveComparison().ignoringFields("lastName", "citiesVisited").isEqualTo(person2);
         }
 
         @Test
@@ -94,7 +103,7 @@ import static org.assertj.core.api.Assertions.*;
             List<String> citiesVisited = List.of("Berlin", "Munich", "Hamburg", "Frankfurt");
             Person person = new Person("Albert", "Einstein", 25, citiesVisited, true);
 
-            assertThatNoException().isThrownBy(() -> person.getFirstName());
+            assertThatIllegalArgumentException().isThrownBy(() -> person.getFirstName());
             assertThatIllegalArgumentException().isThrownBy(() -> person.setFirstName(null))
                     .withMessage("First Name can not be null");
             assertThatThrownBy(() -> citiesVisited.get(9)).isInstanceOf(ArrayIndexOutOfBoundsException.class);

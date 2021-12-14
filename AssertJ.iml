@@ -33,7 +33,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="assertj.core" level="project" />
-    <orderEntry type="library" exported="" name="junit.jupiter" level="project" />
   </component>
 </module>
