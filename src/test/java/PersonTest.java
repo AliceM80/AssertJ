@@ -13,12 +13,6 @@ import static org.assertj.core.api.Assertions.*;
 
 class PersonTest {
 
-   /* private static Person person;
-
-    @BeforeAll
-            public static void setUp() {
-            person = new Person();
-    }*/
 
         @Test
         @DisplayName("Task 1: Verify person details")
@@ -60,11 +54,18 @@ class PersonTest {
         @Test
         @DisplayName("Task 4: verify PersonDetails By Comparing With Other Person")
         public void verifyPersonDetailsByComparingWithOtherPerson() {
+            //GIVEN
             Person person1 = new Person("Albert", "Einstein", 25, List.of("Berlin"), true);
             Person person2 = new Person("Albert", "Einstein", 25, List.of("Berlin"), true);
              assertThat(person1).isEqualTo(person2);
-           //Assertions.assertThat(person2).usingRecursiveComparison
-                   //usingRecursive().ignoringFields("lastName", "citiesVisited").isEqualTo(person2);
+
+             //WHEN
+            verifyPersonDetailsByComparingWithOtherPerson configuration = assertThat(ACTUAL).usingRecursiveComparison()
+                    .ignoringFields(person1);
+                    .getRecursiveComparisonConfiguration(person2);
+             //THEN
+            assertThat(configuration.getIgnoredFields()).containsExactly(person1, person2);
+
 
 
         }
